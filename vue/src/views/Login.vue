@@ -75,6 +75,7 @@
   import store from "../store";
   import {useRouter} from "vue-router";
   import { ref } from "vue";
+  import Alert from "../components/Alert.vue";
 
   const router = useRouter()
   const user = {
