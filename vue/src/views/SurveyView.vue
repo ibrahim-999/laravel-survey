@@ -7,7 +7,6 @@
         </h1>
       </div>
     </template>
-    <!--<pre>{{model}}</pre>-->
     <div v-if="surveyLoading" class="flex justify-center">Loading...</div>
     <form v-else @submit.prevent="saveSurvey" class="animate-fade-in-down">
       <div class="shadow sm:rounded-md sm:overflow-hidden">
@@ -196,7 +195,6 @@
   import QuestionEditor from "../components/editor/QuestionEditor.vue";
   const route = useRoute();
   const router = useRouter();
-  //Create empty survey
   let model = ref({
     title: "",
     slug: "",
@@ -211,6 +209,19 @@
     model.value = store.state.surveys.find(
       (s) => s.id === parseInt(route.params.id)
     );
+  }
+
+  function onImageChoose (ev) {
+    const file = ev.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      // The field to send to the backend and apply validation
+      model.value.image = reader.result;
+      // The field to display
+      model.value.image_url = reader.result;
+    };
+    reader.readAsDataURL(file);
   }
   function addQuestion(index) {
     const newQuestion = {
