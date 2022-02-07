@@ -109,7 +109,7 @@
 
   const navigation = [
     { name: 'Dashboard', to: {name: 'Dashboard'} },
-    { name: 'surveyss', to: {name: 'Surveyss'} },
+    { name: 'Surveys', to: {name: 'Surveys'} },
   ];
 
   export default {

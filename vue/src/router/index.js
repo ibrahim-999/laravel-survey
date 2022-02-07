@@ -4,7 +4,7 @@ import Dashboard from "../views/Dashboard.vue";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 import DefaultLayout from "../components/DefaultLayout.vue";
-import Surveyss from "../views/Surveyss.vue";
+import Surveys from "../views/Surveys.vue";
 import SurveyView from "../views/SurveyView.vue";
 import AuthLayout from "../components/AuthLayout.vue";
 import store from "../store";
@@ -16,9 +16,9 @@ const routes = [
     meta: {requiresAuth: true},
     children: [
       {path: '/dashboard', name:'Dashboard',component:Dashboard},
-      {path: '/surveyss', name:'Surveyss',component:Surveyss},
-      { path: "/surveyss/create", name: "SurveyCreate", component: SurveyView },
-      { path: "/surveyss/:id", name: "SurveyView", component: SurveyView },
+      {path: '/Surveys', name:'Surveys',component:Surveys},
+      { path: "/Surveys/create", name: "SurveyCreate", component: SurveyView },
+      { path: "/Surveys/:id", name: "SurveyView", component: SurveyView },
     ]
 
   },
