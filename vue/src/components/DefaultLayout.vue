@@ -130,10 +130,12 @@
       const router = useRouter();
 
       function logout() {
-        store.commit('logout');
-        router.push({
-          name: 'Login'
-        });
+        store.dispatch('logout')
+          .then(() => {
+            router.push({
+              name: 'Login',
+            });
+          });
       }
       return {
         user: computed(() => store.state.user.data),
