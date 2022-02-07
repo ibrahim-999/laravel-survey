@@ -227,7 +227,7 @@
       (q) => q !== question
     );
   }
-  function changeQuestion(question) {
+  function questionChange(question) {
     model.value.questions = model.value.questions.map((q) => {
       if (q.id === question.id) {
         return JSON.parse(JSON.stringify(question));
@@ -238,20 +238,14 @@
      * Create or update survey
      */
     function saveSurvey() {
-      let action = "created";
-      if (model.value.id) {
-        action = "updated";
-      }
-      store.dispatch("saveSurvey", {...model.value}).then(({data}) => {
-        store.commit("notify", {
-          type: "success",
-          message: "The survey was successfully " + action,
-        });
+      store.dispatch("saveSurvey", model.value).then(({ data }) => {
         router.push({
           name: "SurveyView",
-          params: {id: data.data.id},
+          params: { id: data.data.id },
+
         });
       });
+
     }
     function deleteSurvey() {
       if (
@@ -259,7 +253,8 @@
           `Are you sure ?`
         )
       ) {
-        store.dispatch("deleteSurvey", model.value.id).then(() => {
+        store.dispatch("deleteSurvey", model.value.id)
+          .then(() => {
           router.push({
             name: "Surveys",
           });

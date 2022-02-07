@@ -167,17 +167,16 @@ const store = createStore({
         .then(({data}) => {
           commit('setUser', data);
           return data;
-        })
+        });
     },
     logout({commit}) {
       return axiosClient.post('/logout')
         .then(response => {
           commit('logout')
           return response;
-        })
-    }
+        });
+    },
   },
-
   modules: {},
   mutations: {
     saveSurvey: (state, survey) => {
