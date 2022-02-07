@@ -5,6 +5,7 @@ import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 import DefaultLayout from "../components/DefaultLayout.vue";
 import Surveyss from "../views/Surveyss.vue";
+import SurveyView from "../views/SurveyView.vue";
 import AuthLayout from "../components/AuthLayout.vue";
 import store from "../store";
 const routes = [
@@ -15,7 +16,9 @@ const routes = [
     meta: {requiresAuth: true},
     children: [
       {path: '/dashboard', name:'Dashboard',component:Dashboard},
-      {path: '/surveyss', name:'Surveyss',component:Surveyss}
+      {path: '/surveyss', name:'Surveyss',component:Surveyss},
+      { path: "/surveyss/create", name: "SurveyCreate", component: SurveyView },
+      { path: "/surveyss/:id", name: "SurveyView", component: SurveyView },
     ]
 
   },
