@@ -131,11 +131,11 @@
         <!--/ Survey Fields -->
 
         <!--Questions-->
-       <!-- <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
+        <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
           <h3 class="text-2xl font-semibold flex items-center justify-between">
             Questions
 
-            &lt;!&ndash; Add new question &ndash;&gt;
+            <!-- Add new question -->
             <button
               type="button"
               @click="addQuestion()"
@@ -155,7 +155,7 @@
               </svg>
               Add Question
             </button>
-            &lt;!&ndash;/ Add new question &ndash;&gt;
+            <!--/ Add new question -->
           </h3>
           <div v-if="!model.questions.length" class="text-center text-gray-600">
             You don't have any questions created
@@ -169,7 +169,7 @@
               @deleteQuestion="deleteQuestion"
             />
           </div>
-        </div>-->
+        </div>
         <!--/ Questions-->
 
         <!--Submit-->
@@ -189,10 +189,12 @@
 
 <script setup>
 
+  import { v4 as uuidv4 } from "uuid";
   import { computed, ref, watch } from "vue";
   import { useRoute } from "vue-router";
   import store from "../store";
   import PageComponent from "../components/PageComponent.vue";
+  import QuestionEditor from "../components/editor/QuestionEditor.vue";
   const route = useRoute();
   //Create empty survey
   let model = ref({
@@ -210,6 +212,34 @@
     model.value = store.state.surveys.find(
       (s) => s.id === parseInt(route.params.id)
     );
+  }
+
+  function addQuestion(index) {
+    const newQuestion = {
+      id: uuidv4(),
+      Type: "text",
+      question: "",
+      description: null,
+      data: {},
+    };
+
+    model.value.questions.splice(index, 0, newQuestion);
+  }
+
+  function deleteQuestion(question) {
+    model.value.questions = model.value.questions.filter(
+      (q) => q !== question
+    );
+  }
+
+  function changeQuestion(question) {
+    model.value.questions = model.value.questions.map((q) => {
+      if(q.id  === question.id ) {
+       return JSON.parse(JSON.stringify(question));
+      }
+      return q;
+    });
+
   }
 </script>
 
