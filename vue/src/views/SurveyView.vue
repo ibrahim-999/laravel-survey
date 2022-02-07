@@ -191,11 +191,12 @@
 
   import { v4 as uuidv4 } from "uuid";
   import { computed, ref, watch } from "vue";
-  import { useRoute } from "vue-router";
+  import { useRoute, useRouter } from "vue-router";
   import store from "../store";
   import PageComponent from "../components/PageComponent.vue";
   import QuestionEditor from "../components/editor/QuestionEditor.vue";
   const route = useRoute();
+  const router = useRouter();
   //Create empty survey
   let model = ref({
     title: "",
@@ -234,12 +235,45 @@
 
   function changeQuestion(question) {
     model.value.questions = model.value.questions.map((q) => {
-      if(q.id  === question.id ) {
-       return JSON.parse(JSON.stringify(question));
+      if (q.id === question.id) {
+        return JSON.parse(JSON.stringify(question));
       }
       return q;
     });
 
+    /**
+     * Create or update survey
+     */
+    function saveSurvey() {
+      let action = "created";
+      if (model.value.id) {
+        action = "updated";
+      }
+      store.dispatch("saveSurvey", {...model.value}).then(({data}) => {
+        store.commit("notify", {
+          type: "success",
+          message: "The survey was successfully " + action,
+        });
+        router.push({
+          name: "SurveyView",
+          params: {id: data.data.id},
+        });
+      });
+    }
+
+    function deleteSurvey() {
+      if (
+        confirm(
+          `Are you sure ?`
+        )
+      ) {
+        store.dispatch("deleteSurvey", model.value.id).then(() => {
+          router.push({
+            name: "Surveys",
+          });
+        });
+      }
+    }
   }
 </script>
 
