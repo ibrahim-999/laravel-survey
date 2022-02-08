@@ -195,6 +195,8 @@
   import QuestionEditor from "../components/editor/QuestionEditor.vue";
   const route = useRoute();
   const router = useRouter();
+
+  const surveyLoading = computed(() => store.state.currentSurvey.loading)
   let model = ref({
     title: "",
     slug: "",
@@ -205,10 +207,20 @@
     expire_date: null,
     questions: [],
   });
+
+  //
+  watch(
+    () => store.state.currentSurvey.data,
+       (newVal, oldVal) => {
+        model.value = {
+          ...JSON.parse(JSON.stringify(newVal)),
+          status: newVal.status !== "draft",
+       };
+    }
+  );
+
   if(route.params.id){
-    model.value = store.state.surveys.find(
-      (s) => s.id === parseInt(route.params.id)
-    );
+    store.dispatch('getSurvey', route.params.id);
   }
 
   function onImageChoose (ev) {
