@@ -109,7 +109,7 @@
 
   const navigation = [
     { name: 'Dashboard', to: {name: 'Dashboard'} },
-    { name: 'Surveys', to: {name: 'Surveys'} },
+    { name: 'Surveys.vue', to: {name: 'Surveys.vue'} },
   ];
 
   export default {
