@@ -270,7 +270,20 @@
       });
 
     }
-
+    function deleteSurvey() {
+      if (
+        confirm(
+          `Are you sure ?`
+        )
+      ) {
+        store.dispatch("deleteSurvey", model.value.id)
+          .then(() => {
+          router.push({
+            name: "Surveys",
+          });
+        });
+      }
+    }
   }
 </script>
 
