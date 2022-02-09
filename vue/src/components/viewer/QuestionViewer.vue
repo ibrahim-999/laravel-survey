@@ -86,16 +86,17 @@
 
 <script setup>
   import { ref } from "vue";
-  const { question, index, modelValue } = defineProps({
-    question: Object,
-    index: Number,
-    modelValue: [String, Array],
-  });
   const emits = defineEmits(["update:modelValue"]);
   let model;
   if (question.type === "checkbox") {
     model = ref({});
   }
+  const { question, index, modelValue } = defineProps({
+    question: Object,
+    index: Number,
+    modelValue: [String, Array],
+  });
+
   function shouldHaveOptions() {
     return ["select", "radio", "checkbox"].includes(question.type);
   }
