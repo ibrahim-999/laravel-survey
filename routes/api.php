@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/survey-by-slug/{survey:slug}', [SurveyController::class,'showForGuest']);
+Route::post('/survey/{survey}/answer', [SurveyController::class,'storeSurvey']);
 
 Route::post('/register', [AuthController::class,'register']);
 Route::post('/login', [AuthController::class,'login']);

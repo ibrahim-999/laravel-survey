@@ -43,6 +43,9 @@ const store = createStore({
         throw err;
       });
     },
+    saveSurveyAnswer({commit}, {surveyId, answers}) {
+      return axiosClient.post(`/survey/${surveyId}/answer`, {answers});
+    },
     saveSurvey({commit}, survey) {
       delete survey.image_url;
       let response;
