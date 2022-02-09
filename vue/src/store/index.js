@@ -1,6 +1,7 @@
 import {createStore} from "vuex";
 import axiosClient from "../axios";
 import {data} from "autoprefixer";
+import {combineSourcemaps} from "vite/dist/node/utils";
 
 
 const store = createStore({
@@ -71,6 +72,17 @@ const store = createStore({
         commit('setSurveyLoading', false);
         commit('setSurveys', res.data);
         return res;
+      });
+    },
+    getSurveyBySlug({commit}, slug) {
+      commit("setCurrentSurveyLoading", true);
+      return axiosClient.get(`/survey-by-slug/${slug}`).then((res) => {
+        commit("setCurrentSurvey", res.data);
+        commit("setCurrentSurveyLoading", false);
+        return res;
+      }).catch((err) => {
+        commit("setCurrentSurveyLoading", false);
+        throw err;
       });
     },
     register({commit}, user) {
