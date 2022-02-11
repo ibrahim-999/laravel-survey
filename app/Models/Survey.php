@@ -33,6 +33,12 @@ class Survey extends Model
         return $this->hasMany(SurveyQuestion::class);
     }
 
+    public function answers():HasMany
+    {
+        return $this->hasMany(SurveyAnswer::class);
+    }
+
+
     public function getSlugOptions(): SlugOptions
     {
         // TODO: Implement getSlugOptions() method.
