@@ -20,15 +20,29 @@ const store = createStore({
       data: [],
     },
     questionTypes:["text", "select", "radio", "checkbox", "textarea"],
-
     notification: {
       show: false,
       type: null,
       message: null,
     },
+    dashboard: {
+      loading: false,
+      data: {},
+    },
   },
   getters: {},
   actions: {
+    getDashboardData({commit}) {
+      commit('dashboardLoading', true);
+      return axiosClient.get(`/dashboard`).then((res) => {
+        commit('dashboardLoading', false);
+        commit('setDashboardData', res.data);
+        return res;
+      }).catch(error => {
+        commit('dashboardLoading', false);
+        return error;
+      });
+    },
     deleteSurvey({}, id) {
       return axiosClient.delete(`/survey/${id}`);
     },
@@ -112,6 +126,12 @@ const store = createStore({
   },
   modules: {},
   mutations: {
+    dashboardLoading: (state, loading) => {
+      state.dashboard.loading = loading;
+    },
+    setDashboardData: (state, data ) => {
+      state.dashboard.data = data;
+    },
     notify: (state, {message, type} ) => {
       state.notification.show = true;
       state.notification.type = type;
