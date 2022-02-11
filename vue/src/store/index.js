@@ -1,7 +1,5 @@
 import {createStore} from "vuex";
 import axiosClient from "../axios";
-import {data} from "autoprefixer";
-import {combineSourcemaps} from "vite/dist/node/utils";
 
 
 const store = createStore({
